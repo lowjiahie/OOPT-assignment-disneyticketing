@@ -12,7 +12,7 @@ public class Supplier extends Personal_info{
     static int count = 0;
     private String joinDate;
 
-    public Supplier(int id, String fName, String lName, int age, char gender, String phNum, String email, String joinDate) {
+    public Supplier(int id, String fName, String lName, String phNum,int age, char gender,  String email, String joinDate) {
         super( id, fName, lName, phNum, age, gender, email);
         this.joinDate = joinDate;
     }

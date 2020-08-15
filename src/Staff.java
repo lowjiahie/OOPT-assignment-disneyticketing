@@ -1,5 +1,6 @@
 
 
+
 public class Staff extends Personal_info{
     private String password;
     private int securityCode;
@@ -15,7 +16,6 @@ public class Staff extends Personal_info{
             this.jobDesc = jobDesc;
             idCount++;
         }
-    
 
     public String getPassword() {
         return password;
@@ -46,4 +46,55 @@ public class Staff extends Personal_info{
     	this.jobDesc = jobDesc;
     }
     
+    public static boolean resetSecurityCode(int id, Staff[] s, int securityCode, int newCode) {
+    	int error = 0;
+    	
+    	for(int i=0;i<s.length;i++){
+    		if (s[i].getID()!= id){
+    			error++;
+    		} else {
+    			if (s[i].securityCode != securityCode) {
+    				error++;
+    			} else {
+    				s[i].setSecurityCode(newCode);
+    				error=0;
+    				break;
+    			}
+    		}
+    	}
+    	if (error > 0){
+    		return false;
+    	}else {
+    		return true;
+    	}
+    	
+    }
+	public static boolean resetPassword(int id, Staff[] s, int securityCode, String password, String newPassword) {
+    	int error = 0;
+    	for(int i=0;i<s.length;i++){
+    		if (s[i].getID() != id){
+    			error++;
+    		} else {
+    			if (s[i].securityCode != securityCode) {
+    				error++;
+    			} else {
+    				if (s[i].password != password ) {
+    					error++;
+    				} else {
+    					s[i].setPassword(newPassword);
+    					error = 0;
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	if (error > 0){
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
+    public void staffDetails() {
+    	System.out.printf("%8d %20s %10d %2d %c %25s %15s %30s", getID(), getfName()+getlName(), getPhNum(), getAge(), getGender(), getEmail(), post, jobDesc);
+    }
 }

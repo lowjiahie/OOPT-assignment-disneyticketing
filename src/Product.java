@@ -68,7 +68,7 @@ public class Product {
     	this.quantity = quantity;
     	this.totalQtyPurchased += this.quantity;
     }
-    public void displayDetails(){
+    public void displayDetails(){ //toString
     	System.out.printf("%8d %20s %30s %3d %6d %6.2lf %4d",id,name,description,quantity,totalQtyPurchased,price,productCount-1000);
     }
 }
