@@ -1,13 +1,13 @@
 
 public class Product {
- private int id;
+    private int id;
     private String name;
     private String description;
     private int quantity;
     private int totalQtyPurchased;  //added to track how much item has been purchased from this supplier
     private double price;
     private static int productCount= 1001;
-
+    
     public Product(int id, String name, String description, int quantity, double price) {
         this.id = id;
         this.name = name;
@@ -47,9 +47,9 @@ public class Product {
     public int getQuantity() {
         return quantity;
     }
-	public int getTotalQtyPurchased() {
-		return totalQtyPurchased;
-	}
+    public int getTotalQtyPurchased() {
+            return totalQtyPurchased;
+    }
     public double getPrice() {
         return price;
     }

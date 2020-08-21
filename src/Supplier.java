@@ -6,11 +6,12 @@
  * @version 1.00 2020/8/8
  */
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 public class Supplier extends Personal_info{
-    private Product [] p = new Product[75];
+    private ArrayList<Product> p = new ArrayList<Product>();
     private static int count = 0;
     private Date joinDate;
 
@@ -41,8 +42,8 @@ public class Supplier extends Personal_info{
         System.out.print("Enter product price > ");
         double price = scan.nextDouble();
         
-        p[count] = new Product(id,name,description,qty,price);
-        if(p[count]!= null){
+        p.get(count) = new Product(id,name,description,qty,price);
+        if(p.get(count)!= null){
         	System.out.println("1 Product added !");
         	count++;
         	return true;

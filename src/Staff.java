@@ -8,13 +8,13 @@ public class Staff extends Personal_info{
     private String jobDesc;
     private static int idCount= 5001;
 
-    public Staff(int id,String fName, String lName, String phNum, int age, char gender, String email, String password, int securityCode, String post, String jobDesc, String street, String city, String state, int posCode, String country) {
-        super(id, fName, lName, phNum, age, gender, email, street, city, state, posCode, country);
-        this.password = password;
-        this.securityCode = securityCode;
-        this.post = post;
-        this.jobDesc = jobDesc;
-        idCount++;
+    public Staff(int id,String fName, String lName, String phNum, int age, char gender, String email,String street, String city, String state, int posCode, String country, String password, int securityCode, String post, String jobDesc) {
+            super(id, fName, lName, phNum, age, gender, email, street, city, state, posCode, country);
+            this.password = password;
+            this.securityCode = securityCode;
+            this.post = post;
+            this.jobDesc = jobDesc;
+            idCount++;
     }
 
     public String getPassword() {
