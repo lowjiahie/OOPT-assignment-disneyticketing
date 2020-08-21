@@ -1,6 +1,4 @@
 
-
-
 public class Staff extends Personal_info{
     private String password;
     private int securityCode;
@@ -149,8 +147,12 @@ public class Staff extends Personal_info{
     		return true;
     	}
     }
-    public void staffDetails() {
-    	System.out.printf("%8d %20s %10d %2d %c %25s %15s %30s", getID(), getfName()+getlName(), getPhNum(), getAge(), getGender(), getEmail(), post, jobDesc);
+    public String toString() {
+    	return super.toString() + 
+    			"Password : " +  this.password + "\n" +
+    			"Security Code : " +  this.securityCode + "\n" +
+    			"Position : " +  this.securityCode + "\n" +
+    			"Job Description : " +  this.securityCode + "\n";
     }
     
     

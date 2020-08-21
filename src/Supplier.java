@@ -9,9 +9,11 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
+ 
 public class Supplier extends Personal_info{
-    private ArrayList<Product> p = new ArrayList<Product>();
+    private static Scanner scan = new Scanner(System.in);
+    private static Scanner get = new Scanner(System.in);
+    private static ArrayList<Product> prodList = new ArrayList<Product>();
     private static int count = 0;
     private Date joinDate;
 
@@ -27,8 +29,8 @@ public class Supplier extends Personal_info{
     }
     
     
-    public boolean addProduct(){
-        Scanner scan = new Scanner(System.in);
+    public static void addProduct(){
+        
         
         //prompt and read
         System.out.print("Enter product id > ");
@@ -42,18 +44,19 @@ public class Supplier extends Personal_info{
         System.out.print("Enter product price > ");
         double price = scan.nextDouble();
         
-        p.get(count) = new Product(id,name,description,qty,price);
-        if(p.get(count)!= null){
-        	System.out.println("1 Product added !");
-        	count++;
-        	return true;
-        }else {
-        	System.out.println("No Product added !");
-        	return false;
+        System.out.print("Are you sure to add this product (Y/N) >");
+        char ask = scan.next().charAt(0);
+        
+        if(ask == 'Y'){
+            Product newProduct = new Product(id,name,description,qty,price);
+            prodList.add(newProduct);
+            System.out.println("Product Success added!!!");
+        }else{
+            System.out.println("Product Failed added!!!");
         }
+        
     } 
     public boolean deleteProduct(){
-        Scanner scan = new Scanner(System.in);
         boolean isDelete = false;
         int deleteID = 0;
         
@@ -61,15 +64,15 @@ public class Supplier extends Personal_info{
         System.out.print("Enter product id > ");
         int id = scan.nextInt();  
         	
-        for(int i=0;i<p.length;i++){
-        	if (p[i].getId() == id){
+        for(int i=0;i<prodList.size();i++){
+        	if (prodList.get(i).getId() == id){
         		deleteID=i;
-        		System.out.println("Product ID > " + p[i].getId());
-        		System.out.println("Product name > " + p[i].getName());
-        		System.out.println("Product description > " + p[i].getDescription());
-        		System.out.println("Product quantity > " + p[i].getQuantity());
-        		System.out.println("Product total quantity purchased > " + p[i].getTotalQtyPurchased());
-        		System.out.println("Price per unit > " + p[i].getPrice());
+        		System.out.println("Product ID > " + prodList.get(i).getId());
+        		System.out.println("Product name > " + prodList.get(i).getName());
+        		System.out.println("Product description > " + prodList.get(i).getDescription());
+        		System.out.println("Product quantity > " + prodList.get(i).getQuantity());
+        		System.out.println("Product total quantity purchased > " + prodList.get(i).getTotalQtyPurchased());
+        		System.out.println("Price per unit > " + prodList.get(i).getPrice());
         		
         		System.out.print("Confirm Deletion ? (Y=yes & N=no)");
         		char delete = scan.next().charAt(0);  
@@ -95,7 +98,6 @@ public class Supplier extends Personal_info{
         }
     } 
     public boolean updateProduct(int product_id){
-        Scanner scan = new Scanner(System.in);
     	int updateID=0;
     	boolean isUpdate = false;
     	
