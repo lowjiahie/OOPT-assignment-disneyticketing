@@ -202,6 +202,17 @@ public class Package {
             return true;
         }
     }
+
+   
+    public String toString() {
+        
+        return "ID : " + id + "\n" + 
+               "Title :" + title + "\n" +
+               "Zone : " + zone + "\n" + 
+               "Normal Price : " + normalPrice + "\n" + 
+               "Premium Price : " + premiumPrice + "\n" +
+               "Party : " + party + "\n";
+    }
     
    
     

@@ -6,22 +6,22 @@
  * @version 1.00 2020/8/8
  */
 
+import java.util.Date;
 import java.util.Scanner;
+
 public class Supplier extends Personal_info{
     private Product [] p = new Product[75];
-    static int count = 0;
-    private String joinDate;
+    private static int count = 0;
+    private Date joinDate;
 
-    public Supplier(int id, String fName, String lName, String phNum,int age, char gender,  String email, String joinDate) {
-        super( id, fName, lName, phNum, age, gender, email);
-        this.joinDate = joinDate;
-    }
-
-    public void setJoinDate(String joinDate) {
-        this.joinDate = joinDate;
-    }
     
-    public String getJoinDate() {
+    public Supplier(int id, String fName, String lName, String phNum,int age, char gender, String email, String street, String city, String state, int posCode, String country) {
+        super( id, fName, lName, phNum, age, gender, email,street, city, state, posCode, country);
+        this.joinDate = new Date();
+    }
+
+
+    public Date getJoinDate() {
         return joinDate;
     }
     
@@ -186,4 +186,18 @@ public class Supplier extends Personal_info{
     		}
     	}
     }
+
+    
+    
+    public String toString() {
+        
+        return  super.toString() +   
+                "Join Date : " + joinDate + "\n";
+    }
+    
+    
+
+    
+    
+   
 }

@@ -16,8 +16,8 @@ public class Personal_info extends Address{
     private char gender;
     private String email;
 
-    public Personal_info(int id, String fName, String lName, String phNum, int age, char gender, String email) {
-        super();
+    public Personal_info(int id, String fName, String lName, String phNum, int age, char gender, String email, String street, String city, String state, int posCode, String country) {
+        super(street, city, state, posCode, country);
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -73,39 +73,15 @@ public class Personal_info extends Address{
         return email;
     }
     
-    // either make separate all validation or make it as "personal_info_validation()"
-    public static boolean validateID(int id, String fName, String lName, String phNum, int age, char gender, String email)
-    {
-        String pattern2 = "\\\\d{12}|(?:\\\\d{6}-){2}\\\\d{4}";
-        String pattern3 = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
-        String pattern4 = "^[\\w-\\.+]*[\\w-\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        char genderV= Character.toUpperCase(gender);
-        if(fName.length() > 1 && lName.length() > 1)
-        {
-            return true;
-        }
-        else if(id.matches(pattern2)) //id, this statement should be improve
-        {
-            return true;
-        }
-        else if(Character.isDigit(age) && age < 130 && age >= 0) //age
-        {
-            return true;
-        }
-        else if(genderV == 'F'||genderV == 'f'||genderV == 'M'||genderV == 'm') //gender
-        {
-            return true;
-        }
-        else if (email.matches(pattern4)) //email
-        {
-            return true;
-        }
-        else if(phNum.matches(pattern3)) //phone
-        {
-            return true;
-        }
-        
-        return false;
+   
+    public String toString() {
+        return "ID : " + id + "\n" +
+               "First Name : " + fName + "\n" +
+               "Last Name : " + lName + "\n" +
+               "Phone Number : " + phNum + "\n" +
+               "Age : " + age + "\n" +
+               "Gender : " + gender + "\n"+
+               "Email : " + email + "\n";
     }
 
 }

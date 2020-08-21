@@ -14,9 +14,6 @@ public class Address {
     private int posCode;
     private String country;
     
-    public Address(){
-        
-    }
     public Address(String street, String city, String state, int posCode, String country) {
         this.street = street;
         this.city = city;
@@ -56,5 +53,14 @@ public class Address {
     public String getCountry() {
         return country;
     }
+
+    public String toString() {
+        return "Street : " + street + "\n" +
+               "City : " + city + "\n" +
+               "State : " + state + "\n" +
+               "Pos Code : " + posCode + "\n" + 
+               "Country : " + country + "\n";
+    }
+    
     
 }

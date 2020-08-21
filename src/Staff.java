@@ -8,14 +8,14 @@ public class Staff extends Personal_info{
     private String jobDesc;
     private static int idCount= 5001;
 
-	public Staff(int id,String fName, String lName, String phNum, int age, char gender, String email, String password, int securityCode, String post, String jobDesc) {
-            super(id, fName, lName, phNum, age, gender, email);
-            this.password = password;
-            this.securityCode = securityCode;
-            this.post = post;
-            this.jobDesc = jobDesc;
-            idCount++;
-        }
+    public Staff(int id,String fName, String lName, String phNum, int age, char gender, String email, String password, int securityCode, String post, String jobDesc, String street, String city, String state, int posCode, String country) {
+        super(id, fName, lName, phNum, age, gender, email, street, city, state, posCode, country);
+        this.password = password;
+        this.securityCode = securityCode;
+        this.post = post;
+        this.jobDesc = jobDesc;
+        idCount++;
+    }
 
     public String getPassword() {
         return password;
@@ -69,7 +69,62 @@ public class Staff extends Personal_info{
     	}
     	
     }
-	public static boolean resetPassword(int id, Staff[] s, int securityCode, String password, String newPassword) {
+    
+    public static boolean validateSecurityCode(int securityCode){ //securityCode cannot start from 0
+    	int error = 0;
+    	int code = securityCode;
+    	int countDigit = 0;
+    	
+    	while (countDigit > 0){
+    		securityCode /= 10;
+    		countDigit++;
+    	}
+    	
+    	if(countDigit <= 8){
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
+    
+    public static boolean validatePassword(String password){
+    	int error = 0;
+    	int countDigit = 0;
+    	int countLetter = 0;
+    	
+    	if(password.length() <= 6){
+    		error++;
+    	} else {
+    		for (int i=0; i<password.length(); i++){
+    			if(Character.isLetter(password.charAt(i))){
+    				countLetter++;
+    			}
+    			if(Character.isDigit(password.charAt(i))){
+    				countDigit++;
+    			}
+    		}
+    		
+    		if (countLetter < 1 || countDigit < 1){
+    			error++;
+    		}else {
+    			for(int i=0; i<password.length(); i++){
+			    	if (!Character.isLetter(password.charAt(i)) && !Character.isDigit(password.charAt(i))){
+			    		error++;
+			    	}else {
+			    		error=0;
+			    	}
+		   		}
+    		}
+    	}
+    	
+    	if(error != 0){
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
+    
+    public static boolean resetPassword(int id, Staff[] s, int securityCode, String password, String newPassword) {
     	int error = 0;
     	for(int i=0;i<s.length;i++){
     		if (s[i].getID() != id){
@@ -97,4 +152,6 @@ public class Staff extends Personal_info{
     public void staffDetails() {
     	System.out.printf("%8d %20s %10d %2d %c %25s %15s %30s", getID(), getfName()+getlName(), getPhNum(), getAge(), getGender(), getEmail(), post, jobDesc);
     }
+    
+    
 }
