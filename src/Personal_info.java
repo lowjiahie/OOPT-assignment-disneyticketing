@@ -38,7 +38,7 @@ public class Personal_info extends Address{
         
         this.lName = lName;
     }
-    public void setPhNum(String phoneNum) {
+    public void setPhNum(String phNum) {
         this.phNum = phNum;
     }
     public void setAge(int age) {
@@ -81,7 +81,8 @@ public class Personal_info extends Address{
                "Phone Number : " + phNum + "\n" +
                "Age : " + age + "\n" +
                "Gender : " + gender + "\n"+
-               "Email : " + email + "\n";
+               "Email : " + email + "\n" +
+               super.toString();
     }
 
 }

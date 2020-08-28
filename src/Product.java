@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+
+
 public class Product {
     private int id;
     private String name;
@@ -6,7 +9,8 @@ public class Product {
     private int quantity;
     private int totalQtyPurchased;  //added to track how much item has been purchased from this supplier
     private double price;
-    private static int productCount= 1001;
+    private static int productCount= 1005;
+    private static ArrayList<Product> prodList = new ArrayList<Product>();
     
     public Product(int id, String name, String description, int quantity, double price) {
         this.id = id;
@@ -15,9 +19,17 @@ public class Product {
         this.quantity = quantity;
         this.totalQtyPurchased =quantity;
         this.price = price;
-        productCount++;
+
     }
 
+    public static void setProdList(ArrayList<Product> prodList) {
+        Product.prodList = prodList;
+    }
+
+    public static ArrayList<Product> getProdList() {
+        return prodList;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }
@@ -26,10 +38,6 @@ public class Product {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-        this.totalQtyPurchased += this.quantity;
     }
     public void setPrice(double price) {
         this.price = price;
@@ -64,11 +72,35 @@ public class Product {
     	
     	return subtotal;
     }
+    
     public void restock(int quantity){
-    	this.quantity = quantity;
+
+        this.quantity = quantity;
+        
     	this.totalQtyPurchased += this.quantity;
     }
-    public void displayDetails(){ 
-    	System.out.printf("%8d %20s %30s %3d %6d %6.2lf %4d",id,name,description,quantity,totalQtyPurchased,price,productCount-1000);
+    
+    public static boolean prodList(int id){
+        boolean checkID=false;
+        for(int i = 0; i<prodList.size(); i++){
+            if(prodList.get(i).getId() == id){
+                System.out.println(prodList.get(i));
+                checkID=true;
+                break;
+            }else{
+                checkID=false;
+            }
+        }
+        
+       return checkID;
+    } 
+    public String toString() {
+        return  "Product ID : " + id + "\n" + 
+                "Name : " + name + "\n" + 
+                "Description : " + description + "\n" + 
+                "Quantity : " + quantity + "\n" + 
+                "Total Qty Purchased :" + totalQtyPurchased + "\n" + 
+                "Price : " + price + "\n";
     }
+    
 }

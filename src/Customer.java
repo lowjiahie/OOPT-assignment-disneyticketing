@@ -1,378 +1,996 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Admin-jiahie
- */
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.Scanner;
 
-public class Customer extends Personal_info
-{   
-    private Customer [] customer = new Customer [10000000];
-    private String ticketID; 
-    private String ticketType; //input
-    private int quantity; //input
-    private String date;
-    private String timeIN;
-    private String timeOUT;
+public class Customer extends Person
+{  
+    private int ticketID;
+    private String ticketType;
+    private String packet;
+    private int quantity; 
+    private int pass;
+    private String orderDate;
     private String paymentType; 
-    private int cardNum;
-    private int custID;
-    private static int idCount = 3001;
-    private int custNum;
-    private static int custCount = 1;
-
-   public Customer(int id, String fName, String lName, String phNum, int age, char gender, String email,  String street, String city, String state, int posCode, String country, String ticketID, String ticketType, int quantity, String date, String timeIN, String timeOUT, String paymentType, int cardNum, int custID) 
-    {
-        super( id, fName, lName, phNum, age, gender, email, street, city, state, posCode, country);
-        this.ticketID = ticketID;
+    private String cardNum;
+    private double total;
+ 
+    public Customer (){
+        super();
+    }
+    public Customer(Person p, String ticketType, String packet, int ticketID, int quantity, String orderDate, int pass, String paymentType, String cardNum, double total) {
+        super(p.getID(), p.getfName(), p.getlName(), p.getPhNum(), p.getAge(), p.getGender(), p.getEmail(), p.getStreet(), p.getCity(), p.getState(), p.getPosCode(), p.getCountry());
         this.ticketType = ticketType;
+        this.packet = packet;
+        this.ticketID = ticketID;
+       // this.ticketID = (int)(Math.random() * 10000000);
         this.quantity = quantity;
-        this.date = date;
-        this.timeIN = timeIN;
-        this.timeOUT = timeOUT;
+        this.orderDate = orderDate;
+        this.pass = pass;
         this.paymentType = paymentType;
         this.cardNum = cardNum;
-        this.custID = custID;
-        custID++;
+        this.total = total;
     }
 
-    public Customer[] getCustomer() {
-        return customer;
-    }
-    public String getTicketID() {
+    public int getTicketID() {
         return ticketID;
     }
     public String getTicketType() {
         return ticketType;
     }
+    public String getPacket() {
+        return packet;
+    }
     public int getQuantity() {
         return quantity;
     }
-    public String getDate() {
-        return date;
+    public String getOrderDate() {
+        return orderDate;
     }
-    public String getTimeIN() {
-        return timeIN;
-    }
-    public String getTimeOUT() {
-        return timeOUT;
+    public int getPass() {
+        return pass;
     }
     public String getPaymentType() {
         return paymentType;
     }
-    public int getCardNum() {
+    public String getCardNum() {
         return cardNum;
     }
-    public int getCustID() {
-        return custID;
+    public double getTotal() {
+        return total;
     }
-    public int getCustNum() {
-        return custNum;
-    }
-    public static int getIdCount() {
-        return idCount;
-    }
-    public int getCustCount() {
-        return custCount;
-    }
-    
-    public void setCustomer(Customer[] customer) {
-        this.customer = customer;
-    }
-    public void setTicketID(String ticketID) {
+
+    public void setTicketID(int ticketID) {
         this.ticketID = ticketID;
     }
     public void setTicketType(String ticketType) {
         this.ticketType = ticketType;
     }
+    public void setPacket(String packet) {
+        this.packet = packet;
+    }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
-    public void setTimeIN(String timeIN) {
-        this.timeIN = timeIN;
-    }
-    public void setTimeOUT(String timeOUT) {
-        this.timeOUT = timeOUT;
+    public void setPass(int pass) {
+        this.pass = pass;
     }
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
-    public void setCardNum(int cardNum) {
+    public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
-    public void setCustID(int custID) {
-        this.custID = custID;
-    }
-    public void setCustNum(int custNum) {
-        this.custNum = custNum;
-    }
-    public static void setIdCount(int idCount) {
-        Customer.idCount = idCount;
-    }
-    public void setCustCount(int custCount) {
-        this.custCount = custCount;
+    public void setTotal(double total) {
+        this.total = total;
     }
     
- 
-    
-    public void displayOrder(){//ask to view or add order
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Add order or view order 1.Add 2.View (Enter a digit): ");
-        int order = scanner.nextInt();
-        if(order == 1)
-        {
-            System.out.print("Enter customer ID");
-            int login1 = scanner.nextInt();
-            Ticket(login1);
-        }
-        else if(order == 2)
-        {
-            System.out.print("Enter customer ID");
-            int login2 = scanner.nextInt();
-            for(int i = 0; i<customer.length; i++)
-            {
-                if(customer[i].getID() == login2)
-                {
-                    System.out.println(customer[i]);
-                }
-            }
-        }       
-    }
-    
-    public void Registration()
-    {
-        Scanner scanner = new Scanner(System.in);
-        boolean shouldContinue = false;
-        int count = 0;
-        while(shouldContinue == false)
-        {
-            String fName,lName, email, phNum, street, city, state, country; 
-            int age, posCode, custID;
-            char gender;
-            
-            System.out.println("Customer Information");
-            System.out.println("=======================");
-            System.out.print("Enter first name: ");
-            fName = scanner.nextLine();
-            System.out.print("Enter last name: ");
-            lName = scanner.nextLine();
-            System.out.print("Enter ID number (12 digits): ");
-            custID = scanner.nextInt();
-            System.out.print("Enter age: ");
-            age = scanner.nextInt();
-            System.out.print("Enter gender M(ale)/F(emale): ");
-            gender =  scanner.next().charAt(0);
-            System.out.print("Enter email address: ");
-            email = scanner.nextLine();
-            System.out.print("Enter phone number: ");
-            phNum = scanner.nextLine();
-            System.out.print("Enter street address: ");
-            street = scanner.nextLine();
-            System.out.print("Enter city address: ");
-            city = scanner.nextLine();
-            System.out.print("Enter state address: ");
-            state = scanner.nextLine();
-            System.out.print("Enter poscode address: ");
-            posCode = scanner.nextInt();
-            System.out.print("Enter country address: ");
-            country = scanner.nextLine();
-
-            System.out.print("Confirm to Register? 1.YES 2.NO 3.QUIT REGISTRATION (Select in digit): ");
-            int confirm = scanner.nextInt();
-            if(confirm == 1)
-            {
-                boolean result = Validation.validation(fName, lName, custID, age, gender, email, phNum, street, city, state, posCode, country);
-                if (result == true)
-                {
-                    System.out.print("Registration Success");
-                    customer[custNum] = new Customer(custID, fName, lName, age, gender, email, phNum, street, city, state, posCode, country, "NULL", "NULL", 0, "NULL", "NULL","NULL","NULL",0);
-                    custCount++;
-                    displayOrder();
-                }
-                else
-                {
-                    System.out.print("Invalid pattern. Please try again.");
-                    shouldContinue = false;
-                }
-            }
-            else if (confirm == 2)
-                shouldContinue = false;
-            else
-                break;
-        }
-    }
-    
-    public void Ticket(int login)
-    {
-        Scanner scanner = new Scanner(System.in);
-        boolean shouldContinue = false, shouldContinue1 = false, shouldContinue2 = false, shouldContinue3 = false;
-        int quit, quantityConfirm;
-        String ticketChoice;
+    public static boolean expireValidation(int month, int year){
+        Calendar calendar = Calendar.getInstance();
         
-        while(shouldContinue == false)
+        if (calendar.get(Calendar.YEAR) > year)
         {
-            for(int i= 0; i < customer.length ; i++)
+            if(calendar.get(Calendar.MONTH) > month)
             {
-                if(customer[i].getID() != login)
-                {
-                    System.out.println("Invalid customer ID. Have created account?");
-                    System.out.print("1.YES,try again 2.NO,register now 3.Quit ordering (Enter in Digit): ");
-                    int register = scanner.nextInt();
-                    if(register == 1)
-                    {
-                        shouldContinue = false;
-                    }
-                    else if(register == 2)
-                    {
-                        Registration();
-                    }
-                    else
-                    {
-                        displayOrder(); 
-                    }
+                return false;
+            }
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static ArrayList<Customer> addCustomer(ArrayList<Customer> cust){
+       ArrayList<Customer> tempCust = cust;
+       Scanner scan = new Scanner(System.in);
+
+       int count = cust.size() + 1;
+       int id = 3000 + count;
+       boolean success = false;
+       Person p = new Person();
+        
+        System.out.println("\nCustomer Information");
+        System.out.println("************************");
+        p = addPerson(id);
+        System.out.printf("\nRecord Entered\n");
+        System.out.println("**************");
+        System.out.println("Personal Info");
+        System.out.println("=============");
+        System.out.println("Enter first name : " + p.getfName());
+        System.out.println("Enter last name : " + p.getlName());
+        System.out.println("Enter Contact Number : " + p.getPhNum());
+        System.out.println("Enter Age : " + p.getAge());
+        System.out.println("Enter Gender : " + p.getGender());
+        System.out.println("Enter Your Email : " + p.getEmail());
+        System.out.printf("\nAddress\n");
+        System.out.println("============");
+        System.out.println("Enter Street : " + p.getStreet());
+        System.out.println("Enter City : " + p.getCity());
+        System.out.println("Enter State : " + p.getState());
+        System.out.println("Enter Poscode : " + p.getPosCode());
+        System.out.println("Enter Country : " + p.getCountry());
+        System.out.printf("Confirm Customer Record? (Y=yes | N=no) > ");
+        char confirmation = scan.next().charAt(0);
+
+        if(Character.toUpperCase(confirmation) == 'Y'){
+            System.out.println("\n Success !!!");
+            System.out.println(p.getfName() + " Customer ID > " + p.getID() + "\n");
+            cust.add(new Customer(p, "NULL", "NULL", 0, 0 , "NULL" , 0, "NULL", "NULL" , 0.00));
+            success = true;
+        }else {
+            System.out.println("Registration Failed !");
+        }
+      return tempCust;
+   }
+    
+    public static ArrayList<Customer> editCustomer(ArrayList<Customer> cust){
+        ArrayList <Customer> tempCust = cust;
+        int customerID, selection;
+        boolean success = false;
+        Person store = new Person();
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter Customer ID > ");
+        customerID = scan.nextInt();     
+        
+        for(Customer c : cust)
+        {
+            if (c.getID() != customerID )
+            {
+                success = false;
+            }else{
+                success = true;
+                store = c;
+                break;
+            }
+        }
+        if(!success)
+        {
+            System.out.printf("\n Customer does not exist ! \n");
+        }
+        else{
+            
+            do{
+                System.out.println("1. Personal Info");
+                System.out.println("2. Address");
+                System.out.println("3. Return");
+                System.out.print("Select Field to Edit (1-3) > ");
+                selection = scan.nextInt();
+
+                switch(selection){
+                    case 1:
+                        store = editPersonalInfo(store);
+                        break;
+                    case 2:
+                        store = editAddress(store);
+                        break;
+                    case 3:
+                        break;
                 }
-                else
+            }while (selection != 3);
+        }
+        return tempCust;
+    }
+    
+    public static ArrayList<Customer> buyTicket(ArrayList<Customer> cust, ArrayList<Package> pk){
+        ArrayList<Customer> tempCust = cust;
+        ArrayList<Package> tempPk = pk;
+        Customer remember = new Customer();
+        boolean shouldContinue = false, shouldContinue2 = false, shouldContinue3 = false, again = false;
+        int quit, quantityOrder, error=0;
+        String ticketChoice, packageChoice;
+        char cancel, cancelAgain;
+        
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter Customer ID > ");
+        int login = scan.nextInt();
+        scan.nextLine();
+        for(Customer c : tempCust)
+        {
+            if(c.getID() != login)
+            {
+                error ++;
+            }
+            else
+            {
+                while(again== false)
                 {
-                    while(shouldContinue1 == false)
+                    System.out.println("\nPurchase Ticket");
+                    System.out.println("==================");
+                    System.out.println("PACKAGES CHOICES");
+                    System.out.println("***********************");
+                    for(Package p : tempPk){
+                        System.out.println("Package : " +  p.getTitle());
+                        System.out.println("Normal Price : RM " +  p.getNormalPrice());
+                        System.out.println("Premium Price : RM " +  p.getPremiumPrice() + "\n");
+                    }
+                    System.out.print("Enter which pacakage to purchase > ");
+                    packageChoice = scan.nextLine();
+                    for(Package p : tempPk)
                     {
-                        System.out.println("Purchase Ticket");
-                        System.out.println("==================");
-                        System.out.print("Enter which pacakage would you like to buy");
-
-                        //package
-
-                        System.out.print("Choose a number of the Ticket type 1.Classic 2.Premium: "); 
-                        int type = scanner.nextInt();
-                        if(type != 1 && type != 2)
+                        if (!p.getTitle().equals(packageChoice))
                         {
-                            System.out.print("Are you sure to cancel order? 1.YES 2.NO (Select in digit):");
-                            quit = scanner.nextInt();
-                            if(quit == 2)
-                                shouldContinue1 = false;
-                            else
-                                displayOrder();
+                            error ++;
                         }
                         else
                         {
-                            if(type==1)
+                            if (p.getTitle().equals(packageChoice))
                             {
-                                ticketChoice = "Classic";
-                                customer[custCount].setTicketType(ticketChoice);
+                                while(shouldContinue3 == false)
+                                {
+                                    System.out.print("Choose a number of the Ticket type 1.Classic 2.Premium > "); 
+                                    int type = scan.nextInt();
+                                    switch(type)
+                                    {
+                                        case 1:
+                                            while(shouldContinue2 == false)
+                                            {
+                                                System.out.print("Enter ticket quantity > ");
+                                                quantityOrder = scan.nextInt();
+                                                if(quantityOrder > 1000 && !Character.isDigit(quantityOrder))
+                                                {
+                                                    System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----\n\n");
+                                                    System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                    char back = scan.next().charAt(0);
+                                                    if(Character.toUpperCase(back) == 'Y')
+                                                    {
+                                                       scan.nextLine();
+                                                       System.out.println("");
+                                                       shouldContinue2 = false;
+                                                       
+                                                    }
+                                                    else
+                                                    {
+                                                       error++;
+                                                       again = true;
+                                                       shouldContinue2 = true;
+                                                       shouldContinue3 = true;
+                                                       break;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    while(shouldContinue == false)
+                                                    {
+                                                        System.out.print("Ticket Day Pass > ");
+                                                        int ticketpass = scan.nextInt();
+                                                        if(!Character.isDigit(ticketpass) && ticketpass > 31)
+                                                        {
+                                                            System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----\n");
+                                                            System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                            char back = scan.next().charAt(0);
+                                                            if(Character.toUpperCase(back) == 'Y')
+                                                            {
+                                                               scan.nextLine();
+                                                               System.out.println("");
+                                                               shouldContinue = false;
+                                                            }
+                                                            else
+                                                            {
+                                                               error++;
+                                                               again = true;
+                                                               shouldContinue = true;
+                                                               shouldContinue2 = true;
+                                                               shouldContinue3 = true;
+                                                               break;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            System.out.printf("\n!!! DONE !!! \n");
+                                                            Date date1 = Calendar.getInstance().getTime();  
+                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+                                                            String orderDate = dateFormat1.format(date1); 
+                                                            c.setOrderDate(orderDate);
+                                                            c.setPacket(packageChoice);
+                                                            ticketChoice = "Classic";
+                                                            int tickID = (int)(Math.random() * 10000000);
+                                                            c.setTicketID(tickID );
+                                                            c.setTicketType(ticketChoice);
+                                                            c.setQuantity(quantityOrder);
+                                                            c.setPass(ticketpass);
+                                                            double totalPay = p.getNormalPrice() * quantityOrder * ticketpass;
+                                                            c.setTotal(totalPay);
+                                                            remember = c;
+                                                            error = 0;
+                                                            again = true;
+                                                            shouldContinue = true;
+                                                            shouldContinue2 = true;
+                                                            shouldContinue3 = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case 2:
+                                            while(shouldContinue2 == false)
+                                            {
+                                                System.out.print("Enter ticket quantity > ");
+                                                quantityOrder = scan.nextInt();
+                                                if(quantityOrder > 1000 & !Character.isDigit(quantityOrder))
+                                                {
+                                                    System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----");
+                                                    System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                    char back = scan.next().charAt(0);
+                                                    if(Character.toUpperCase(back) == 'Y')
+                                                    {
+                                                       scan.nextLine();
+                                                       System.out.println("");
+                                                       shouldContinue2 = false;
+                                                    }
+                                                    else
+                                                    {
+                                                       error++;
+                                                       again = true;
+                                                       shouldContinue2 = true;
+                                                       shouldContinue3 = true;
+                                                       break;
+                                                    } 
+                                                }
+                                                else
+                                                {
+                                                     while(shouldContinue == false)
+                                                     {
+                                                        System.out.print("Ticket Day Pass > ");
+                                                        int ticketpass = scan.nextInt();
+                                                        if(!Character.isDigit(ticketpass) && ticketpass > 31)
+                                                        {
+                                                            System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
+                                                            System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                            char back = scan.next().charAt(0);
+                                                            if(Character.toUpperCase(back) == 'Y')
+                                                            {
+                                                               scan.nextLine();
+                                                               System.out.println("");
+                                                               shouldContinue = false;
+                                                            }
+                                                            else
+                                                            {
+                                                               error++;
+                                                               again = true;
+                                                               shouldContinue = true;
+                                                               shouldContinue2 = true;
+                                                               shouldContinue3 = true;
+                                                               break;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            System.out.printf("\n!!! DONE !!! \n");
+                                                            Date date1 = Calendar.getInstance().getTime();  
+                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+                                                            String orderDate = dateFormat1.format(date1); 
+                                                            c.setOrderDate(orderDate);
+                                                            c.setPacket(packageChoice);
+                                                            ticketChoice = "Premium";
+                                                            int tickID = (int)(Math.random() * 10000000);
+                                                            c.setTicketID(tickID );
+                                                            c.setTicketType(ticketChoice);
+                                                            c.setQuantity(quantityOrder);
+                                                            c.setPass(ticketpass);
+                                                            double totalPay = p.getPremiumPrice() * quantityOrder * ticketpass;
+                                                            c.setTotal(totalPay);
+                                                            remember = c;
+                                                            error = 0;
+                                                            again = true;
+                                                            shouldContinue = true;
+                                                            shouldContinue2 = true;
+                                                            shouldContinue3 = true;
+                                                            break;
+                                                        }
+                                                     }
+                                                    
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            System.out.printf("\n ------- Invalid Ticket Type -------\n");
+                                            System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                            char back = scan.next().charAt(0);
+                                            if(Character.toUpperCase(back) == 'Y')
+                                            {
+                                                scan.nextLine();
+                                                System.out.println("");
+                                                shouldContinue3 = false;
+                                            }
+                                            else
+                                            {
+                                                error++;
+                                                shouldContinue3 = true;
+                                                again = true;
+                                                break;
+                                            }
+                                    }
+                                }
                             }
-                            else if(type==2)
-                            {
-                                ticketChoice = "Premium";
-                                customer[custCount].setTicketType(ticketChoice);
-                            }
+                            break;
                         }
-                        while(shouldContinue2 == false)
+                    } 
+                    if(error != 0 )
+                    {
+                        again = true;
+                        error++;
+                        break;
+                    }
+                }
+                break;
+            }
+        }   
+        if(error != 0)
+        {
+           System.out.print("\n***** Data is not Recorded *****\n");
+        }
+        else
+        {
+           confirmation(remember.getID(), tempCust, tempPk);
+        }
+        
+        return tempCust;
+    }
+    
+    public static ArrayList<Customer> confirmation(int custID1, ArrayList<Customer> cust, ArrayList<Package> pk){
+        ArrayList<Customer> tempCust = cust;
+        ArrayList<Package> tempPk = pk;
+        Customer remember = new Customer();
+        
+        Scanner scan = new Scanner(System.in);
+        boolean again = false;
+        boolean editresult1 = false, editresult2 = false, editresult3 = false, editresult4 = false;
+        int error=0;
+        double editTotal= 0;
+        char quit;
+        
+        for(Customer c : tempCust)
+        {
+            if(c.getID() == custID1)
+            {
+                do
+                {
+                    System.out.println("\n\t\t Confirmation Order \t\t\t");
+                    System.out.println("**********************************************************");
+                    System.out.println("< Customer Information >");
+                    System.out.println("First Name: " + c.getfName() + "\t" + "Last Name: " + c.getlName());
+                    System.out.println("Age: " + c.getAge() + "\t" + "Gender: " + c.getGender());
+                    System.out.println("Phone Num: " + c.getPhNum() + "\t" + "Email: " + c.getEmail());
+                    System.out.println("Address: " + c.getStreet() + ", " + c.getCity());
+                    System.out.println("\t" + c.getPosCode()+ ", " + c.getState() + ", " + c.getCountry());
+                    System.out.println("----------------------------------------------------------");
+                    System.out.println("< Ticket Information >");
+                    System.out.println("Customer ID: " + c.getID());
+                    System.out.println("Check-in: "+ c.getOrderDate() + "\t" + "Ticket Pass: " + c.getPass() + "day(s)");
+                    System.out.println("Ticket Quantity: " + c.getQuantity() + "\t\t" + "Ticket Type: " + c.getTicketType());
+                    System.out.println("Ticket ID: " + c.getTicketID() + "\t" + "Package Purchased: " + c.getPacket());
+                    System.out.println("**********************************************************");
+                    System.out.println("|  TOTAL PRICE (RM): " + c.getTotal() + "\t\t\t       |");
+                    System.out.println("**********************************************************");
+                    System.out.print("\nWould you like to edit your order? (Y=yes | N=no) > ");
+                    char edit = scan.next().charAt(0);
+                    System.out.println();
+                    if(Character.toUpperCase(edit) == 'Y')
+                    {
+                        int choice = 0; char confirmation;
+                        do
                         {
-                            System.out.print("Enter ticket quantity: ");
-                            int quantity = scanner.nextInt();
+                            System.out.println("\n1. Edit Package ");
+                            System.out.println("2. Edit Ticket Type ");
+                            System.out.println("3. Edit Quantity ");
+                            System.out.println("4. Edit Ticket daypass ");
+                            System.out.println("5. Back to Order Confirmation ");
+                            System.out.print("Choose which to Edit > ");
+                            choice = scan.nextInt();
+                            scan.nextLine();
+                            
+                            switch(choice){
+                                case 1:
+                                    System.out.println("\nPurchase Ticket");
+                                    System.out.println("==================");
+                                    System.out.println("PACKAGES CHOICES");
+                                    System.out.println("***********************");
+                                    for(Package p : tempPk){
+                                        System.out.println("Package : " +  p.getTitle());
+                                        System.out.println("Normal Price : RM " +  p.getNormalPrice());
+                                        System.out.println("Premium Price : RM " +  p.getPremiumPrice() + "\n");
+                                    }
+                                    System.out.print("Enter which pacakage to purchase > ");
+                                    String editpackage = scan.nextLine();
+                                    for(Package p : tempPk)
+                                    {
+                                        if (!p.getTitle().equals(editpackage))
+                                        {
+                                            error ++;
+                                        }
+                                        else
+                                        {
+                                            if (p.getTitle().equals(editpackage))
+                                            {
+                                                System.out.println("From " + c.getPacket() + " Change to " + editpackage);
+                                                System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                                confirmation = scan.next().charAt(0);
+                                                if(Character.toUpperCase(confirmation) == 'Y' )
+                                                {
+                                                    if(c.getTicketType().equals("Classic"))
+                                                    {
+                                                        c.setPacket(editpackage);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal =(p.getNormalPrice() * c.getQuantity() * c.getPass()) ;
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else if(c.getTicketType().equals("Premium"))
+                                                    {
+                                                        c.setPacket(editpackage);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getPremiumPrice() * c.getQuantity() * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.print("Error");
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            break; 
+                                        }
+                                    }
+                                    if(error != 0)
+                                    {
+                                        System.out.println("\n !!! Record No Changes / Invalid !!! ");
+                                        again = true;
+                                        break;
+                                    }
+                                    break;
+                                case 2:                                    
+                                    String typeChoice;
+                                    System.out.print("\nEdit Ticket Type ( 1.Classic | 2.Premium ) > ");
+                                    int type = scan.nextInt();
+                                    switch(type)
+                                    {
+                                        case 1 :
 
-                            if(quantity > 1000)
-                            {
-                                System.out.print("You have exceed the order ticket limit");
-                                shouldContinue2 = false;
+                                            System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                            confirmation = scan.next().charAt(0);
+                                            if(Character.toUpperCase(confirmation) == 'Y' )
+                                            {
+                                                for(Package p : tempPk)
+                                                {
+                                                    if(p.getTitle().equals(c.getPacket()))
+                                                    {
+                                                        typeChoice = "Classic";
+                                                        c.setTicketType(typeChoice);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getNormalPrice() * c.getQuantity() * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                System.out.println("\nNo record changed");
+                                                break;
+                                            }
+                                            break;
+                                        case 2 :
+                                            System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                            confirmation = scan.next().charAt(0);
+                                            if(Character.toUpperCase(confirmation) == 'Y' )
+                                            {
+                                                for(Package p : tempPk)
+                                                {
+                                                    if(p.getTitle().equals(c.getPacket()))
+                                                    {
+                                                        typeChoice = "Premium";
+                                                        c.setTicketType(typeChoice);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getPremiumPrice() * c.getQuantity() * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                System.out.println("\nNo record changed");
+                                                break;
+                                            }
+                                            break;
+                                        default:
+                                            System.out.println("\n ------- Invalid Input Value either 1 or 2 -------");
+                                            break;
+                                    }
+                                    break;
+                                case 3:
+                                    System.out.print("\nEdit Quantity > ");
+                                    int quantity = scan.nextInt();
+                                    if(quantity > 1000 && !Character.isDigit(quantity))
+                                    {
+                                        System.out.println("\n You have exceed the limit quantity / Invalid input");
+                                        //break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("From " + c.getQuantity() + " Change to " + quantity);
+                                        System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                        confirmation = scan.next().charAt(0);
+                                        if(Character.toUpperCase(confirmation) == 'Y' )
+                                        {
+                                            for(Package p : tempPk)
+                                            {
+                                                if(p.getTitle().equals(c.getPacket()))
+                                                {
+                                                    if(c.getTicketType().equals("Classic"))
+                                                    {
+                                                        c.setQuantity(quantity);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal =(p.getNormalPrice() * quantity * c.getPass()) ;
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else if(c.getTicketType().equals("Premium"))
+                                                    {
+                                                        c.setQuantity(quantity);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getPremiumPrice() * quantity * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.print("Error");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            System.out.println("\nNo record changed");
+                                            break;
+                                        }
+                                        break;
+                                    }
+                                    break;
+                                case 4:
+                                    
+                                    System.out.print("\nEdit Ticket daypass > ");
+                                    int editpass = scan.nextInt();
+
+                                    if(!Character.isDigit(editpass) && editpass > 31)
+                                    {
+                                        System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
+                                        //break;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("From " + c.getPass() + " Change to " + editpass);
+                                        System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                        confirmation = scan.next().charAt(0);
+                                        if(Character.toUpperCase(confirmation) == 'Y' )
+                                        {                                                
+                                            for(Package p : tempPk)
+                                            {
+                                                if(p.getTitle().equals(c.getPacket()))
+                                                {
+                                                    if(c.getTicketType().equals("Classic"))
+                                                    {
+                                                        c.setPass(editpass);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal= (p.getNormalPrice() * c.getQuantity() * editpass);
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else if(c.getTicketType().equals("Premium"))
+                                                    {
+                                                        c.setPass(editpass);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getPremiumPrice() * c.getQuantity() * editpass);
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.print("Error");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            System.out.println("\nNo record changed");
+                                            break;
+                                        }
+                                        break;
+                                    }
+                                    break;
+                                case 5:
+                                    again = false;
+                                    break;
                             }
-                            else if(!Character.isDigit(quantity))
+                        }while(choice != 5);                           
+                    }
+                    else if(Character.toUpperCase(edit) == 'N')
+                    {
+                        System.out.println("\n !! DONE !!! \n");
+                        remember = c;
+                        error = 0;
+                        again = true;
+                        break;
+                    }
+                    else
+                    {
+                        System.out.print("Do you want to cancel order? (Y=yes | N=no) > ");
+                        quit = scan.next().charAt(0);
+                        if(Character.toUpperCase(quit) == 'N')
+                        {
+                            again = false;
+                        }
+                        else
+                        {
+                            error++;
+                           // again = true;
+                            break;
+                        }
+                    }   
+                }while(again == false);
+                break;
+            }
+            else
+            {
+               error++;
+            }
+        }
+        if(error != 0)
+        {
+            System.out.println("\n !!! ORDER CANCELLED !!!");
+        }
+        else
+        {
+            Payment(remember.getID(), tempCust);
+        }
+        return tempCust;
+    }
+    
+    public static ArrayList<Customer> Payment(int custID2, ArrayList<Customer> cust)
+    {
+        ArrayList<Customer> tempCust = cust;
+        
+        Customer remember = new Customer();
+        int error = 0, paymentType;
+        Scanner scan = new Scanner(System.in);
+        boolean shouldContinue = false;
+        boolean validatePayment = false;
+        boolean validateCard = false;
+        for(Customer c : tempCust)
+        {
+            if(c.getID() != custID2)
+            {
+               error++;
+            }
+            else
+            { 
+                while(shouldContinue == false)
+                {
+                    System.out.print("Enter customer payment type 1.CASH 2.CARD (Enter either 1 digit) > ");
+                    paymentType = scan.nextInt();
+                    switch (paymentType)
+                    {
+                        case 1:
+                            error = 0;
+                            String payment1 = "Cash";
+                            c.setCardNum("NULL");
+                            c.setPaymentType(payment1);
+                            remember = c;
+                            shouldContinue = true;
+                            break;
+                            
+                        case 2 :
+                            System.out.print("Enter customer card number > ");
+                            scan.nextLine();
+                            String cardNo = scan.nextLine();
+                            if(cardNo.length() != 16)
                             {
-                                System.out.print("Do you want to cancel order? 1.YES 2.NO (Select in digit):");
-                                quit = scanner.nextInt();
-                                if(quit == 2)
-                                    shouldContinue2 = false;
+                                System.out.println("Card Number is Invalid");
+                                System.out.print("1.Change Selection 2.Quit Ordering (Select a digit) > ");
+                                int out = scan.nextInt();
+                                if(out == 1)
+                                {
+                                   shouldContinue = false;
+                                }
                                 else
-                                    displayOrder();
+                                {
+                                    error++;
+                                    //shouldContinue = true;
+                                    break;
+                                }
+                                //break;
                             }
                             else
                             {
-                                quantityConfirm = quantity;
-                                customer[custCount].setQuantity(quantityConfirm);
-                            }
-                        }
-                        while (shouldContinue3 == false)
-                        {
-                            System.out.print("Ticket Day Pass: ");
-                            int ticketpass = scanner.nextInt();
-                            if(!Character.isDigit(quantity) || ticketpass > 31)
-                            {
-                                System.out.println("----- Invalid value! / TiceketPass limit to 31 days only -----");
-                                System.out.print("Select a digit to (1.Enter again 2.Edit Previous 3.Quit) : ");
-                                quit = scanner.nextInt();
-                                if(quit == 2)
-                                    shouldContinue2 = false;
+                                c.setCardNum(cardNo);
+                                System.out.println("Enter the GOOD THRU card (MONTH/YEAR)");
+                                System.out.print("Month > ");
+                                int month = scan.nextInt();
+                                System.out.print("Year > ");
+                                int year = scan.nextInt();
+                                validateCard = Customer.expireValidation(month, year);
+                                if(validateCard == true)
+                                {
+                                    String payment2 = "Card";
+                                    c.setPaymentType(payment2);
+                                    remember = c;
+                                    shouldContinue = true;
+                                    error=0;
+                                    break;
+                                }
                                 else
-                                    displayOrder();
+                                {
+                                    scan.nextLine();
+                                    System.out.println("Your Card has expired");
+                                    System.out.print("1.Retype again 2.Quit Ordering (Select a digit) > ");
+                                    int out = scan.nextInt();
+                                    if(out == 1)
+                                    {
+                                       shouldContinue = false;
+                                    }
+                                    else
+                                    {
+                                        error++;
+                                        //shouldContinue = true;
+                                        break;
+                                    }
+                                }
                             }
-                            LocalDate checkin = LocalDate.now();
-                            LocalDateTime myDateObj = LocalDateTime.now(); 
-                            System.out.println("Checked-in : " + checkin + "\t\t " + "Ticket Time-in: " + myDateObj);
+                            break;
                             
-                            LocalDate checkout =  LocalDate.now().plusDays(ticketpass);
-                            System.out.println("Check-out : " + checkout + "\t\t" + "Ticket Time-out: " + myDateObj.plus(ticketpass, ChronoUnit.HOURS)); 
-                        }
+                        default:
+                            System.out.println("-------- Selection is invalid --------");
+                            System.out.print("1.Retype again 2.Quit Ordering (Select a digit) > ");
+                            int out3 = scan.nextInt();
+                            if(out3 == 1)
+                            {
+                               shouldContinue = false;
+                            }
+                            else
+                            {
+                                error++;
+                                //shouldContinue = true;
+                                break;
+                            }
+                            break;
                     }
-                    customer[custCount]= new Customer(customer[i].getID(), customer[i].getfName(), customer[i].getlName(), 
-                            customer[i].getAge(), customer[i].getGender(), customer[i].getEmail(), customer[i].getPhNum(), 
-                            customer[i].getStreet(), customer[i].getCity(), customer[i].getState(), getPosCode(), customer[i].getCountry(),
-                            "NULL", customer[custCount].getTicketType(), customer[custCount].getQuantity(), "NULL", "NULL","NULL","NULL",0);
-                }                
+                }
+                break;
             }
+        }
+        if(error!=0)
+        {
+            System.out.print("\n !!! Your Orders has been Cancelled !!! \n");
+        }
+        else
+        {
+            displayOrder(remember.getID(), tempCust);
+        }
+        return tempCust;
+    }
+    
+    public static void displayOrder(int customerID , ArrayList<Customer> cust){
+        int error = 0;
+        for(Customer c : cust)
+        {
+            if(c.getID() != customerID)
+            {
+                error ++;
+            }
+            else
+            {
+                error = 0;
+                System.out.println("\n\t\t Receipt \t\t\t");
+                System.out.println("**********************************************************");
+                System.out.println("< Customer Information >");
+                System.out.println("First Name: " + c.getfName() + "\t" + "Last Name: " + c.getlName());
+                System.out.println("Age: " + c.getAge() + "\t" + "Gender: " + c.getGender());
+                System.out.println("Phone Num: " + c.getPhNum() + "\t" + "Email: " + c.getEmail());
+                System.out.println("Address: " + c.getStreet() + ", " + c.getCity());
+                System.out.println("\t" + c.getPosCode()+ ", " + c.getState() + ", " + c.getCountry());
+                System.out.println("----------------------------------------------------------");
+                System.out.println("< Ticket Information >");
+                System.out.println("Customer ID: " + c.getID());
+                System.out.println("Check-in: "+ c.getOrderDate() + "\t" + "Ticket Pass: " + c.getPass() + "day(s)");
+                System.out.println("Ticket Quantity: " + c.getQuantity() + "\t\t" + "Ticket Type: " + c.getTicketType());
+                System.out.println("Ticket ID: " + c.getTicketID() + "\t" + "Package Purchased: " + c.getPacket());
+                System.out.println("----------------------------------------------------------");
+                System.out.println("< Payment Information >");
+                System.out.println("Payment Type: " + c.getPaymentType() + "\t" + "Card Number: " + c.getCardNum());
+                System.out.println("**********************************************************");
+                System.out.println("|  TOTAL PRICE (RM): " + c.getTotal() + "\t\t\t       |");
+                System.out.println("**********************************************************");
+                break;
+            }
+        }
+        if(error!=0)
+        {
+            System.out.print("\n !!! Customer ID not found !!! \n\n");
         }
     }
     
-    public static void Payment(){
-        
-        Scanner scanner = new Scanner(System.in);
-        boolean shouldContinue = false;
-        boolean validatePayment = false;
-        while(shouldContinue == false)
+    public static void customerList(ArrayList<Customer> cust){
+        int count = 1;
+        double sales = 0.00;
+        System.out.println("\n   Customer List   ");
+        System.out.println("*******************");
+        for(Customer c : cust)
         {
-            System.out.print("Enter customer payment type 1.CASH 2.CARD (Enter either 1 digit): ");
-            int paymentType = scanner.nextInt();
-            if(paymentType != 1 && paymentType != 2){
-                System.out.print("Invalid number. Please try again.");
-                shouldContinue = false;
-            }
-            else if(paymentType == '2')
-            {
-                System.out.print("Enter customer card number: ");
-                String cardNo = scanner.nextLine();
-                validatePayment = Validation.cardValidation(cardNo);
-                if(validatePayment == false)
-                {
-                    System.out.print("Card Number is invalid");
-                    shouldContinue = false;
-                }
-            }
-        }        
+            System.out.printf("Customer %d\n", count);
+            System.out.println(c.toString());
+            count++;
+            sales += c.getTotal();
+        }
+        System.out.printf("Total Customer of the day : %d \n", count-1);
+        System.out.printf("Total Sales of the day : %.2f \n", sales);
+        //SUM OF SALES OF CUTOMERS        
     }
     
-
-    
-    @Override
     public String toString() {
         return super.toString() +
-                "ticketID=" + ticketID + '\n' + 
-                "ticketType=" + ticketType + '\n' + 
-                "quantity=" + quantity + '\n' + 
-                "date=" + date + '\n' + 
-                "timeIN=" + timeIN + '\n' + 
-                "timeOUT=" + timeOUT + '\n' + 
-                "paymentType=" + paymentType + '\n' + 
-                "cardNum=" + cardNum + + '\n';
+            "Ticket ID: " + ticketID + '\n' +
+            "Ticket Type: " + ticketType + '\n' +
+            "Package: " + packet + '\n' +
+            "Ticket Quantity: " + quantity + '\n' +
+            "Check In: " + orderDate + '\n' +
+            "Ticket Pass: " + pass + '\n' +
+            "Payment Type: " + paymentType + '\n' +
+            "CardNum: " + cardNum + '\n' +
+            "Total Price: " + total + '\n';
     }
 }
     
-

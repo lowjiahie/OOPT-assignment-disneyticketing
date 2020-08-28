@@ -6,29 +6,59 @@
  * @version 1.00 2020/8/21
  */
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Disney {
     
     static Scanner scan = new Scanner(System.in);
     static Scanner get = new Scanner(System.in);
     
-    
     public static void main (String [] args) {
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
+        //Person
+        ArrayList<Person> person = new ArrayList<Person>();
+        person.add(new Person(5001, "Ng", "Jing Chong", "010-282 6133", 19, 'M', "ngjingchong@gmail.com", "Jalan 14/155c", "Bukit Jalil", "Kuala Lumpur", 57000, "Malaysia"));
+        person.add(new Person(7002, "Puah", "Hsien Jian", "012-345 6789", 21, 'M', "puahhj@gmail.com", "Jalan meru", "Cheras", "Kuala Lumpur", 58200, "Malaysia"));
+        person.add(new Person(7001, "Low", "Jia Hie", "064-379 6769", 29, 'M', "lowjh@gmail.com", "Jalan malam", "bangi", "Selangor", 43000, "Malaysia"));
+        person.add(new Person(3001, "Khor", "Wen Xin", "085-482 6547", 31, 'F', "khorwx@gmail.com", "Jalan forever", "Kepong", "Selangor", 53200, "Malaysia"));
+        person.add(new Person(3002, "Tan", "Wen Ki", "017-280 2854", 27, 'F', "wen01@gmail.com", "Jalan Merdeka", "Kajang", "Selangor", 43000, "Malaysia"));
         
+        //Product
+        ArrayList<Product> prod = Product.getProdList();
+        prod.add(new Product(1001, "Disney MagicBand", "Peripheral Product", 500, 15.00));
+        prod.add(new Product(1002, "Mickey Mouse hat", "Peripheral Product", 1000, 10.0));
+        prod.add(new Product(1003, "Ticket Disney World", "Ticket Material", 1500, 10.0));
+        prod.add(new Product(1004, "Ticket Machine Cisco", "Ticket Mechine", 50, 5000.0));
+        
+        //Supplier
+        ArrayList<Supplier> supplier = Supplier.getSupplier();
+        //add Person[2] id=7002 to arraylist supplier
+        supplier.add(new Supplier(person.get(2)));
+        supplier.add(new Supplier(person.get(1)));
+        
+        //add product to supplier[0]&&supplier[1]
+        supplier.get(0).getSuppProdList().add(prod.get(0));
+        supplier.get(0).getSuppProdList().add(prod.get(1));
+        supplier.get(1).getSuppProdList().add(prod.get(2));
+        supplier.get(1).getSuppProdList().add(prod.get(3));
+        
+        //Staff
         ArrayList<Staff> staff= new ArrayList<Staff>();
+	staff.add(new Staff(person.get(0), "Jc101255", 1234, "Admin", "has higher accessibility to every thing"));
         
-        staff.add(new Staff(5001, "Ng", "Jing Chong", "010-282 6133", 19, 'M', "ngjingchong@gmail.com", "Jalan 14/155c", "Bukit Jalil", "Kuala Lumpur", 57000, "Malaysia", "Jc101255", 010207, "Admin", "has higher accessibility to every thing"));
-        staff.add(new Staff(5002, "Puah", "Hsien Jian", "012-345 6789", 21, 'M', "puahhj@gmail.com", "Jalan meru", "Cheras", "Kuala Lumpur", 58200, "Malaysia", "Hj123456", 123456, "Cashier", "Collect money from customer"));
-
-    	
-    	
+        //Customer
+        ArrayList<Customer> cust = new ArrayList<Customer>();
+        cust.add(new Customer(person.get(3), "Premium", "Halloween", 83928102, 2, "07-09-2020 13:30:00" , 1, "Card", "123456789", 88.88));
+        cust.add(new Customer(person.get(4), "Classic", "Christmas", 0, 4, "07-09-2020 15:40:00", 1, "Cash", "1294877789", 176.66));
+        
+        //Package
+        ArrayList<Package> pk = new ArrayList<Package>();
+        String [] arr1 = {"Scream Park","Water Park","X Park"};
+        String [] arr2 = {"Scream Park","Water Park","X Park"};
+        pk.add(new Package(9001, "Helloween", arr1, 130.00, 200.00, 180));
+        pk.add(new Package(9002, "CNY", arr2, 150.00, 220.00, 190));
+        
+        
     	int staffId;
     	String password;
     	boolean grant = false;
@@ -66,16 +96,16 @@ public class Disney {
 			    	
 			    	switch(choice){
 			    		case 1:
-			    			staff();
+			    			staff = staff(staff);
 			    			break;
 			    		case 2:
-			    			customer();
+			    			cust = customer(cust,pk);
 			    			break;
 			    		case 3:
-			    			supplier();
+			    			supplier(supplier);
 			    			break;
 			    		case 4:
-			    			packages();
+			    			pk = packages(pk);
 			    			break;
 			    		case 5:
 			    			quit = 0;
@@ -89,194 +119,190 @@ public class Disney {
     
  
     
-    public static void staff(){
+    public static ArrayList<Staff> staff(ArrayList<Staff> arr){
+    	ArrayList<Staff> temp = arr;
     	int choice;
     	do{
-	    	System.out.println("1. Add new Staff");
-		   	System.out.println("2. Edit Personal Details");
-		   	System.out.println("3. Display Staff List");
-		   	System.out.println("4. Return");
-		   	System.out.print("Pick Your Action (1-4) > ");
-		   	choice = scan.nextInt();
-		   	
-		   	switch(choice){
-		   		case 1:
-		   			addStaff();
-		   			break;
-		   		case 2:
-		   			editStaffInfo();
-		   			break;
-		   		case 3:
-		   			staffDisplay();
-		    		break;
-		    	case 4:
-		    		break;
-		   	}
+	    System.out.println("1. Add new Staff");
+            System.out.println("2. Edit Personal Details");
+            System.out.println("3. Display Staff List");
+            System.out.println("4. Return");
+            System.out.println("5. Exit");
+            System.out.print("Pick Your Action (1-4) > ");
+	    choice = scan.nextInt();
+            scan.nextLine();
+            System.out.println();
+            
+	    switch(choice){
+		case 1:
+                    temp = Staff.addStaff(temp);
+	            break;
+	        case 2:
+	            temp = Staff.editStaffInfo(temp);
+	            break;
+                case 3:
+                    Staff.staffDisplay(temp);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    System.exit(1);
+            }
     	}while (choice != 4);
+        return temp;
     }
-    public static void customer(){
-    	int choice;
+    public static ArrayList<Customer> customer(ArrayList<Customer> cust, ArrayList<Package> pk){
+        
+        ArrayList<Customer> tempCust = cust;
+        ArrayList<Package> tempPk = pk;
+        int choice;
+        
     	do{
-	    	System.out.println("1. Register new Customer");
-		   	System.out.println("2. Edit Personal Details");
-		   	System.out.println("3. Purchase Ticket");
-		   	System.out.println("4. View Order Record");
-		   	System.out.println("5. Return");
-		   	System.out.print("Pick Your Action (1-5) > ");
-		   	choice = scan.nextInt();
-		   	
-		   	switch(choice){
-		   		case 1:
-		   			addCustomer();
-		   			break;
-		   		case 2:
-		   			editCustInfo();
-		   			break;
-		   		case 3:
-		   			buyTicket();
-		    		break;
-		    	case 4:
-		   			displayOrder();
-		    		break;
-		    	case 5:
-		    		break;
-		   	}
-    	}while (choice != 5);
+            System.out.println("\n1. Register new Customer");
+            System.out.println("2. Edit Personal Details");
+            System.out.println("3. Purchase Ticket");
+            System.out.println("4. View Order Record");
+            System.out.println("5. Display Customer List");
+            System.out.println("6. Return");
+            System.out.println("7. Exit");
+            System.out.print("Pick Your Action (1-7) >  ");
+            choice = scan.nextInt();
+
+            switch(choice){
+                case 1:
+                    tempCust = Customer.addCustomer(tempCust);
+                    break;
+                case 2:
+                    tempCust = Customer.editCustomer(tempCust);
+                    break;
+                case 3:
+                    tempCust = Customer.buyTicket(tempCust, tempPk);
+                    break;
+                case 4:
+                    System.out.print("Enter Customer ID > ");
+                    int customerID = scan.nextInt();
+                    Customer.displayOrder(customerID, tempCust);
+                    break;
+                case 5:
+                    Customer.customerList(tempCust);
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    System.exit(1);
+            }
+    	}while (choice != 6);
+        return tempCust;
     }
-    public static void supplier(){
+    public static void supplier(ArrayList<Supplier> arr){
     	int choice;
+        int suppID;
+        boolean checkSupp =false;
+        ArrayList<Supplier> supplier = arr;
+        
     	do{
+                System.out.println("\n-Supplier-");
+                System.out.println("==============");
 	    	System.out.println("1. Add New Suppplier");
 	    	System.out.println("2. Add New Product");
-		   	System.out.println("3. Edit Personal Details");
-		   	System.out.println("4. Edit Product Details");
-		   	System.out.println("5. Display Supplier List");
-		   	System.out.println("6. Display Product List");
-		   	System.out.println("7. Restock Product");
-		   	System.out.println("8. Return");
-		   	System.out.print("Pick Your Action (1-8) > ");
-		   	choice = scan.nextInt();
+                System.out.println("3. Edit Personal Details");
+                System.out.println("4. Edit Product Details");
+                System.out.println("5. Display Supplier List");
+                System.out.println("6. Display Product List");
+                System.out.println("7. Order note");
+                System.out.println("8. Return");
+                System.out.print("Pick Your Action (1-8) > ");
+                choice = scan.nextInt();
 		   	
 		   	switch(choice){
-		   		case 1:
-		   			addSupplier(supplierArr);
+		   		case 1://add supplier
+		   			Supplier.addSupplier();
 		   			break;
-		   		case 2:
-		   			addProduct();
+		   		case 2://Add product
+                                        System.out.print("\nEnter your Supplier ID : ");
+                                        suppID = scan.nextInt();
+                                        
+                                        for(int i=0; i<supplier.size(); i++){
+                                            if(supplier.get(i).getID() == suppID){
+                                               checkSupp = true;
+                                               Supplier.addProduct(supplier.get(i));
+                                               break;
+                                            }else{
+                                               checkSupp = false;
+                                            }
+                                        }
+		   			if(!checkSupp){
+                                            System.out.println("Invalid supplier !!!\n");
+                                        }
 		   			break;
-		   		case 3:
-		   			editSupplierInfo();
+		   		case 3://edit Supplier
+		   			Supplier.editSupplier();
 		   			break;
-		   		case 4:
-		   			EditProductInfo();
-		    		break;
-                                case 5:
-		   			supplierDisplay();
+		   		case 4://edit Product
+                                        System.out.print("\nEnter your Supplier ID : ");
+                                        suppID = scan.nextInt();
+                                        
+                                        for(int i=0; i<supplier.size(); i++){
+                                            if(supplier.get(i).getID() == suppID){
+                                               checkSupp = true;
+                                               Supplier.updateProduct(supplier.get(i));
+                                               break;
+                                            }else{
+                                               checkSupp = false;
+                                            }
+                                            
+                                        }
+		   			if(!checkSupp){
+                                            System.out.println("Invalid supplier !!!\n");
+                                        }
+                                        break;
+                                case 5://display Supplier
+                                        Supplier.suppList();
 		   			break;
-		   		case 6:
-		   			productDisplay();
-		    		break;
-                                case 7:
-                                    restock();
+		   		case 6://display product that supply by one of the supplier
+		   			Supplier.prodList();
+                                        break;
+                                case 7://total ordering details
+                                        Supplier.summaryOrderNote();
 		    		break;
 		    	case 8:
 		    		break;
 		   	}
     	}while (choice != 8);
     }
-    public static void packages(){
+    public static ArrayList<Package> packages(ArrayList<Package> pk){
+        ArrayList<Package> temp = pk;
     	int choice;
     	do{
-	    	System.out.println("1. Add New Package");
-		   	System.out.println("2. Edit Package Details");
-		   	System.out.println("3. Delete Package");
-		   	System.out.println("4. Display Package List");
-		   	System.out.println("5. Return");
-		   	System.out.print("Pick Your Action (1-5) > ");
-		   	choice = scan.nextInt();
-		   	
-		   	switch(choice){
-		   		case 1:
-		   			addPackage();
-		   			break;
-		   		case 2:
-		   			editPackage();
-		   			break;
-		   		case 3:
-		   			deletePackage();
-		    		break;
-		    	case 4:
-		   			packageDisplay();
-		    		break;
-		    	case 5:
-		    		break;
-		   	}
+            System.out.println("1. Add New Package");
+            System.out.println("2. Edit Package Details");
+            System.out.println("3. Delete Package");
+            System.out.println("4. Display Package List");
+            System.out.println("5. Return");
+            System.out.print("Pick Your Action (1-5) > ");
+            choice = scan.nextInt();
+            scan.nextLine();
+            switch(choice){
+                case 1:
+                    temp = Package.addPackage(temp);
+                    break;
+                case 2:
+                    temp = Package.editPackage(temp);
+                    break;
+                case 3:
+                    temp = Package.deletePackage(temp);
+                    break;
+                case 4:
+                    Package.packageDisplay(temp);
+                    break;
+                case 5:
+                    break;
+            }
     	}while (choice != 5);
+        return temp;
     }
  
+  
    
     
-    
-    public static Supplier [] addSupplier (Supplier [] arr){
-       
-        char ask;
-        int suppCount =2 ;
-        int suppIdCount=7003;
-        Supplier [] tempArr = arr;
-        
-        System.out.print("Do you want to add supplier (Y/N) > ");
-        ask = get.nextLine().charAt(0);
-
-        if(ask == 'Y'){
-
-            System.out.println("-Supplier Personal info-");
-            System.out.println("=========================");
-            System.out.println("Supplier ID : " + suppIdCount);
-            System.out.print("Enter first name : ");
-            String suppfName = get.nextLine();
-            System.out.print("Enter last name : ");
-            String supplName = get.nextLine();
-            System.out.print("Enter phone number : ");
-            String suppPhNum = get.nextLine();
-            System.out.print("Enter age : ");
-            int suppAge = scan.nextInt();
-            System.out.print("Enter gender : ");
-            char suppGender = get.nextLine().charAt(0);
-            System.out.print("Enter email : ");
-            String suppEmail = get.nextLine();
-
-            System.out.println("-Supplier's Company Address-");
-            System.out.println("=========================");  
-            System.out.print("Enter street : ");
-            String suppStreet = get.nextLine();
-            System.out.print("Enter city : ");
-            String suppCity = get.nextLine();
-            System.out.print("Enter state : ");
-            String suppState = get.nextLine();
-            System.out.print("Enter posCode : ");
-            int suppPosCode = scan.nextInt();
-            System.out.print("Enter country : ");
-            String suppCountry = get.nextLine();
-
-            System.out.print("Comfirm to add ?(Y/N) >");
-            ask = get.nextLine().charAt(0);
-
-            if(ask == 'Y'){
-                tempArr[suppCount] = new Supplier(suppIdCount,suppfName,supplName,suppPhNum,suppAge,suppGender,suppEmail,suppStreet,suppCity,suppState,suppPosCode,suppCountry);
-                if(tempArr[suppCount] != null){
-                        System.out.println("Supplier added !");
-                        suppIdCount++;
-                        suppCount++;
-                        return tempArr;
-                }else{
-                      System.out.println("Failed to add!");
-                        return tempArr;
-                }
-            }
-
-        } 
-        return tempArr;
-    }
-    
-
 }
