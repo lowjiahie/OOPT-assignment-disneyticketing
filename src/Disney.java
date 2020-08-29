@@ -51,6 +51,10 @@ public class Disney {
         cust.add(new Customer(person.get(3), "Premium", "Halloween", 83928102, 2, "07-09-2020 13:30:00" , 1, "Card", "123456789", 88.88));
         cust.add(new Customer(person.get(4), "Classic", "Christmas", 0, 4, "07-09-2020 15:40:00", 1, "Cash", "1294877789", 176.66));
         
+                //Customer
+
+          cust.add(new Customer(person.get(3), "Premium", "Halloween", 83928102, 2, "07-09-2020 13:30:00" , 1, "Card", "123456789", 88.88));
+       cust.add(new Customer(person.get(4), "Classic", "Christmas", 45263662, 4, "07-09-2020 15:40:00", 1, "Cash", "NULL", 176.66));
         //Package
         ArrayList<Package> pk = new ArrayList<Package>();
         String [] arr1 = {"Scream Park","Water Park","X Park"};
