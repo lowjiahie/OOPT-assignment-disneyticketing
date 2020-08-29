@@ -25,7 +25,6 @@ public class Customer extends Person
         this.ticketType = ticketType;
         this.packet = packet;
         this.ticketID = ticketID;
-       // this.ticketID = (int)(Math.random() * 10000000);
         this.quantity = quantity;
         this.orderDate = orderDate;
         this.pass = pass;
@@ -90,15 +89,15 @@ public class Customer extends Person
         this.total = total;
     }
     
-    public static boolean expireValidation(int month, int year){
+    public static boolean expireValidation(int month, int year){ //ERROR
         Calendar calendar = Calendar.getInstance();
         
-        if (calendar.get(Calendar.YEAR) > year)
+        if(calendar.get(Calendar.MONTH) > month && calendar.get(Calendar.YEAR) == year)
         {
-            if(calendar.get(Calendar.MONTH) > month)
-            {
-                return false;
-            }
+            return false;
+        }
+        else if (calendar.get(Calendar.YEAR) > year)
+        {
             return false;
         }
         
@@ -261,7 +260,6 @@ public class Customer extends Person
                                                        scan.nextLine();
                                                        System.out.println("");
                                                        shouldContinue2 = false;
-                                                       
                                                     }
                                                     else
                                                     {
@@ -315,6 +313,8 @@ public class Customer extends Person
                                                             c.setPass(ticketpass);
                                                             double totalPay = p.getNormalPrice() * quantityOrder * ticketpass;
                                                             c.setTotal(totalPay);
+                                                            c.setPaymentType("NOT PAID");
+                                                            c.setCardNum("NOT PAID");
                                                             remember = c;
                                                             error = 0;
                                                             again = true;
@@ -395,6 +395,8 @@ public class Customer extends Person
                                                             c.setPass(ticketpass);
                                                             double totalPay = p.getPremiumPrice() * quantityOrder * ticketpass;
                                                             c.setTotal(totalPay);
+                                                            c.setPaymentType("NOT PAID");
+                                                            c.setCardNum("NOT PAID");
                                                             remember = c;
                                                             error = 0;
                                                             again = true;
@@ -443,7 +445,7 @@ public class Customer extends Person
         }   
         if(error != 0)
         {
-           System.out.print("\n***** Data is not Recorded *****\n");
+           System.out.print("\n***** NO RECORDS *****\n");
         }
         else
         {
@@ -777,6 +779,15 @@ public class Customer extends Person
                         else
                         {
                             error++;
+                            c.setOrderDate(" --- ");
+                            c.setPacket(" ORDER CANCELLED ");
+                            c.setTicketID(000);
+                            c.setTicketType(" ORDER CANCELLED ");
+                            c.setQuantity(000);
+                            c.setPass(000);
+                            c.setPaymentType("NOT PAID");
+                            c.setCardNum("NOT PAID");
+                            c.setTotal(0.00);
                            // again = true;
                             break;
                         }
@@ -848,11 +859,14 @@ public class Customer extends Person
                                 }
                                 else
                                 {
+                                    c.setPaymentType("NOT PAID");
+                                    c.setCardNum("NOT PAID");
+                                    c.setTotal(0.00);
                                     error++;
-                                    //shouldContinue = true;
+                                    shouldContinue = true;
                                     break;
                                 }
-                                //break;
+                                break;
                             }
                             else
                             {
@@ -884,8 +898,11 @@ public class Customer extends Person
                                     }
                                     else
                                     {
+                                        c.setPaymentType("NOT PAID");
+                                        c.setCardNum("NOT PAID");
+                                        c.setTotal(0.00);
                                         error++;
-                                        //shouldContinue = true;
+                                        shouldContinue = true;
                                         break;
                                     }
                                 }
@@ -902,8 +919,11 @@ public class Customer extends Person
                             }
                             else
                             {
+                                c.setPaymentType("NOT PAID");
+                                c.setCardNum("NOT PAID");
+                                c.setTotal(0.00);
                                 error++;
-                                //shouldContinue = true;
+                                shouldContinue = true;
                                 break;
                             }
                             break;
@@ -961,23 +981,24 @@ public class Customer extends Person
         {
             System.out.print("\n !!! Customer ID not found !!! \n\n");
         }
+        else
+        {
+            
+        }
     }
     
-    public static void customerList(ArrayList<Customer> cust){
-        int count = 1;
+    public static void customerList(ArrayList<Customer> cust)
+    {
         double sales = 0.00;
         System.out.println("\n   Customer List   ");
         System.out.println("*******************");
         for(Customer c : cust)
         {
-            System.out.printf("Customer %d\n", count);
             System.out.println(c.toString());
-            count++;
             sales += c.getTotal();
         }
-        System.out.printf("Total Customer of the day : %d \n", count-1);
-        System.out.printf("Total Sales of the day : %.2f \n", sales);
-        //SUM OF SALES OF CUTOMERS        
+        System.out.printf("Total Sales : %.2f \n", sales);
+        
     }
     
     public String toString() {

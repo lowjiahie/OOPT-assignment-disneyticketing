@@ -151,7 +151,7 @@ public class Disney {
     	}while (choice != 4);
         return temp;
     }
-    public static ArrayList<Customer> customer(ArrayList<Customer> cust, ArrayList<Package> pk){
+  public static ArrayList<Customer> customer(ArrayList<Customer> cust, ArrayList<Package> pk){
         
         ArrayList<Customer> tempCust = cust;
         ArrayList<Package> tempPk = pk;
@@ -162,7 +162,7 @@ public class Disney {
             System.out.println("2. Edit Personal Details");
             System.out.println("3. Purchase Ticket");
             System.out.println("4. View Order Record");
-            System.out.println("5. Display Customer List");
+            System.out.println("5. History");
             System.out.println("6. Return");
             System.out.println("7. Exit");
             System.out.print("Pick Your Action (1-7) >  ");
@@ -194,6 +194,7 @@ public class Disney {
     	}while (choice != 6);
         return tempCust;
     }
+
     public static void supplier(ArrayList<Supplier> arr){
     	int choice;
         int suppID;
