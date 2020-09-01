@@ -222,10 +222,12 @@ public class Customer extends Person
                     System.out.println("==================");
                     System.out.println("PACKAGES CHOICES");
                     System.out.println("***********************");
-                    for(Package p : tempPk){
+                    for(Package p : tempPk)
+                    {
                         System.out.println("Package : " +  p.getTitle());
                         System.out.println("Normal Price : RM " +  p.getNormalPrice());
-                        System.out.println("Premium Price : RM " +  p.getPremiumPrice() + "\n");
+                        System.out.println("Premium Price : RM " +  p.getPremiumPrice());
+                        System.out.println("Party Price : RM " + p.getParty()+ "\n");
                     }
                     System.out.print("Enter which pacakage to purchase > ");
                     packageChoice = scan.nextLine();
@@ -241,7 +243,7 @@ public class Customer extends Person
                             {
                                 while(shouldContinue3 == false)
                                 {
-                                    System.out.print("Choose a number of the Ticket type 1.Classic 2.Premium > "); 
+                                    System.out.print("Choose a number of the Ticket type 1.Classic 2.Premium 3.Party > "); 
                                     int type = scan.nextInt();
                                     switch(type)
                                     {
@@ -250,7 +252,7 @@ public class Customer extends Person
                                             {
                                                 System.out.print("Enter ticket quantity > ");
                                                 quantityOrder = scan.nextInt();
-                                                if(quantityOrder > 1000 && !Character.isDigit(quantityOrder))
+                                                if(quantityOrder > 10 && !Character.isDigit(quantityOrder))
                                                 {
                                                     System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----\n\n");
                                                     System.out.print("Would you like to try again (Y=yes | N=no) > ");
@@ -301,7 +303,7 @@ public class Customer extends Person
                                                         {
                                                             System.out.printf("\n!!! DONE !!! \n");
                                                             Date date1 = Calendar.getInstance().getTime();  
-                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");  
                                                             String orderDate = dateFormat1.format(date1); 
                                                             c.setOrderDate(orderDate);
                                                             c.setPacket(packageChoice);
@@ -383,7 +385,7 @@ public class Customer extends Person
                                                         {
                                                             System.out.printf("\n!!! DONE !!! \n");
                                                             Date date1 = Calendar.getInstance().getTime();  
-                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");  
                                                             String orderDate = dateFormat1.format(date1); 
                                                             c.setOrderDate(orderDate);
                                                             c.setPacket(packageChoice);
@@ -407,6 +409,89 @@ public class Customer extends Person
                                                         }
                                                      }
                                                     
+                                                }
+                                            }
+                                            break;
+                                        case 3:
+                                            while(shouldContinue2 == false)
+                                            {
+                                                System.out.print("Enter ticket quantity > ");
+                                                quantityOrder = scan.nextInt();
+                                                if(quantityOrder > 1000 & !Character.isDigit(quantityOrder))
+                                                {
+                                                    System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----");
+                                                    System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                    char back = scan.next().charAt(0);
+                                                    if(Character.toUpperCase(back) == 'Y')
+                                                    {
+                                                       scan.nextLine();
+                                                       System.out.println("");
+                                                       shouldContinue2 = false;
+                                                    }
+                                                    else
+                                                    {
+                                                       error++;
+                                                       again = true;
+                                                       shouldContinue2 = true;
+                                                       shouldContinue3 = true;
+                                                       break;
+                                                    } 
+                                                }
+                                                else
+                                                {
+                                                     while(shouldContinue == false)
+                                                     {
+                                                        System.out.print("Ticket Day Pass > ");
+                                                        int ticketpass = scan.nextInt();
+                                                        if(!Character.isDigit(ticketpass) && ticketpass > 31)
+                                                        {
+                                                            System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
+                                                            System.out.print("Would you like to try again (Y=yes | N=no) > ");
+                                                            char back = scan.next().charAt(0);
+                                                            if(Character.toUpperCase(back) == 'Y')
+                                                            {
+                                                               scan.nextLine();
+                                                               System.out.println("");
+                                                               shouldContinue = false;
+                                                            }
+                                                            else
+                                                            {
+                                                               error++;
+                                                               again = true;
+                                                               shouldContinue = true;
+                                                               shouldContinue2 = true;
+                                                               shouldContinue3 = true;
+                                                               break;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            System.out.printf("\n!!! DONE !!! \n");
+                                                            Date date1 = Calendar.getInstance().getTime();  
+                                                            DateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");  
+                                                            String orderDate = dateFormat1.format(date1); 
+                                                            c.setOrderDate(orderDate);
+                                                            c.setPacket(packageChoice);
+                                                            ticketChoice = "Party";
+                                                            int tickID = (int)(Math.random() * 10000000);
+                                                            c.setTicketID(tickID );
+                                                            c.setTicketType(ticketChoice);
+                                                            c.setQuantity(quantityOrder);
+                                                            c.setPass(ticketpass);
+                                                            double totalPay = p.getParty() * quantityOrder * ticketpass;
+                                                            c.setTotal(totalPay);
+                                                            c.setPaymentType("NOT PAID");
+                                                            c.setCardNum("NOT PAID");
+                                                            remember = c;
+                                                            error = 0;
+                                                            again = true;
+                                                            shouldContinue = true;
+                                                            shouldContinue2 = true;
+                                                            shouldContinue3 = true;
+                                                            break;
+                                                        }
+                                                     }
+
                                                 }
                                             }
                                             break;
@@ -516,7 +601,8 @@ public class Customer extends Person
                                     for(Package p : tempPk){
                                         System.out.println("Package : " +  p.getTitle());
                                         System.out.println("Normal Price : RM " +  p.getNormalPrice());
-                                        System.out.println("Premium Price : RM " +  p.getPremiumPrice() + "\n");
+                                        System.out.println("Premium Price : RM " +  p.getPremiumPrice());
+                                        System.out.println("Party Price : RM " +  p.getParty() + "\n");
                                     }
                                     System.out.print("Enter which pacakage to purchase > ");
                                     String editpackage = scan.nextLine();
@@ -557,6 +643,17 @@ public class Customer extends Person
                                                         again = true;
                                                         break;
                                                     }
+                                                    else if(c.getTicketType().equals("Party"))
+                                                    {
+                                                        c.setPacket(editpackage);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getParty() * c.getQuantity() * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
                                                     else
                                                     {
                                                         System.out.print("Error");
@@ -576,7 +673,7 @@ public class Customer extends Person
                                     break;
                                 case 2:                                    
                                     String typeChoice;
-                                    System.out.print("\nEdit Ticket Type ( 1.Classic | 2.Premium ) > ");
+                                    System.out.print("\nEdit Ticket Type ( 1.Classic | 2.Premium | 3.Party ) > ");
                                     int type = scan.nextInt();
                                     switch(type)
                                     {
@@ -635,6 +732,33 @@ public class Customer extends Person
                                                 break;
                                             }
                                             break;
+                                        case 3 :
+                                            System.out.printf("Confirm Changes (Y=yes | N=no) > ");
+                                            confirmation = scan.next().charAt(0);
+                                            if(Character.toUpperCase(confirmation) == 'Y' )
+                                            {
+                                                for(Package p : tempPk)
+                                                {
+                                                    if(p.getTitle().equals(c.getPacket()))
+                                                    {
+                                                        typeChoice = "Party";
+                                                        c.setTicketType(typeChoice);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getParty() * c.getQuantity() * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                System.out.println("\nNo record changed");
+                                                break;
+                                            }
+                                            break;
                                         default:
                                             System.out.println("\n ------- Invalid Input Value either 1 or 2 -------");
                                             break;
@@ -643,10 +767,9 @@ public class Customer extends Person
                                 case 3:
                                     System.out.print("\nEdit Quantity > ");
                                     int quantity = scan.nextInt();
-                                    if(quantity > 1000 && !Character.isDigit(quantity))
+                                    if(quantity > 10 && !Character.isDigit(quantity))
                                     {
                                         System.out.println("\n You have exceed the limit quantity / Invalid input");
-                                        //break;
                                     }
                                     else
                                     {
@@ -681,6 +804,17 @@ public class Customer extends Person
                                                         again = true;
                                                         break;
                                                     }
+                                                    else if(c.getTicketType().equals("Party"))
+                                                    {
+                                                        c.setQuantity(quantity);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getParty() * quantity * c.getPass());
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
                                                     else
                                                     {
                                                         System.out.print("Error");
@@ -704,7 +838,6 @@ public class Customer extends Person
                                     if(!Character.isDigit(editpass) && editpass > 31)
                                     {
                                         System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
-                                        //break;
                                     }
                                     else
                                     {
@@ -733,6 +866,17 @@ public class Customer extends Person
                                                         c.setPass(editpass);
                                                         System.out.println("\n!!! DONE !!! ");
                                                         editTotal = (p.getPremiumPrice() * c.getQuantity() * editpass);
+                                                        c.setTotal(editTotal);
+                                                        remember = c;
+                                                        error = 0;
+                                                        again = true;
+                                                        break;
+                                                    }
+                                                     else if(c.getTicketType().equals("Party"))
+                                                    {
+                                                        c.setPass(editpass);
+                                                        System.out.println("\n!!! DONE !!! ");
+                                                        editTotal = (p.getParty() * c.getQuantity() * editpass);
                                                         c.setTotal(editTotal);
                                                         remember = c;
                                                         error = 0;
