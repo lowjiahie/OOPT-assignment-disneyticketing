@@ -361,14 +361,21 @@ public class Supplier extends Person{
                 case 3:
                         int suppID = Validation.read_int(scan,"\nEnter your Supplier ID > ");
                         
+                
                         for(int i=0; i<supplier.size();i++){
                             if(supplier.get(i).getID()==suppID){
                                 Supplier selectedSupp = supplier.get(i);
                                 checkID = true;
                                 System.out.print("\n");
-                                for(int l =0; l<selectedSupp.getSuppProdList().size();l++){
-                                    System.out.println(selectedSupp.getSuppProdList().get(l));
-                                }
+                                
+                                    if(selectedSupp.getSuppProdList().isEmpty() == true ){
+                                         System.out.println("This Supplier does not supply any product!!!");
+                                    }else{
+                                        for(int l =0; l<selectedSupp.getSuppProdList().size();l++){
+                                            System.out.println(selectedSupp.getSuppProdList().get(l));
+                                        }
+                                    }
+                                
                                 break;
                             }else{
                                 checkID = false;
