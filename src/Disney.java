@@ -120,8 +120,6 @@ public class Disney {
     
     }
     
- 
-    
     public static Person addPerson(int ID){
         int id = ID;
         String fName;
@@ -754,20 +752,7 @@ public class Disney {
     	}while (choice != 6);
         return tempCust;
     }
-    public static boolean expireValidation(int month, int year){ 
-        Calendar calendar = Calendar.getInstance();
-        
-        if(calendar.get(Calendar.MONTH) > month && calendar.get(Calendar.YEAR) == year)
-        {
-            return false;
-        }
-        else if (calendar.get(Calendar.YEAR) > year)
-        {
-            return false;
-        }
-        
-        return true;
-    }
+   
     public static ArrayList<Customer> addCustomer(ArrayList<Customer> cust){
        ArrayList<Customer> tempCust = cust;
        
@@ -858,9 +843,8 @@ public class Disney {
         ArrayList<Package> tempPk = pk;
         Customer remember = new Customer();
         boolean shouldContinue = false, shouldContinue2 = false, shouldContinue3 = false, again = false;
-        int quit, quantityOrder, error=0;
+        int quantityOrder, error=0;
         String ticketChoice, packageChoice;
-        char cancel, cancelAgain;
         
         System.out.print("Enter Customer ID > ");
         int login = scan.nextInt();
@@ -910,14 +894,15 @@ public class Disney {
                                             {
                                                 System.out.print("Enter ticket quantity > ");
                                                 quantityOrder = scan.nextInt();
+                                                scan.nextLine();
                                                 if(quantityOrder > 10 && !Character.isDigit(quantityOrder))
                                                 {
                                                     System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----\n\n");
                                                     System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                     char back = scan.next().charAt(0);
+                                                    scan.nextLine();
                                                     if(Character.toUpperCase(back) == 'Y')
-                                                    {
-                                                       scan.nextLine();
+                                                    {                                                       
                                                        System.out.println("");
                                                        shouldContinue2 = false;
                                                     }
@@ -936,14 +921,16 @@ public class Disney {
                                                     {
                                                         System.out.print("Ticket Day Pass > ");
                                                         int ticketpass = scan.nextInt();
+                                                        scan.nextLine();
                                                         if(!Character.isDigit(ticketpass) && ticketpass > 31)
                                                         {
                                                             System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----\n");
                                                             System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                             char back = scan.next().charAt(0);
+                                                            scan.nextLine();
                                                             if(Character.toUpperCase(back) == 'Y')
                                                             {
-                                                               scan.nextLine();
+                                                               
                                                                System.out.println("");
                                                                shouldContinue = false;
                                                             }
@@ -992,14 +979,15 @@ public class Disney {
                                             {
                                                 System.out.print("Enter ticket quantity > ");
                                                 quantityOrder = scan.nextInt();
+                                                scan.nextLine();
                                                 if(quantityOrder > 1000 & !Character.isDigit(quantityOrder))
                                                 {
                                                     System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----");
                                                     System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                     char back = scan.next().charAt(0);
+                                                    scan.nextLine();
                                                     if(Character.toUpperCase(back) == 'Y')
                                                     {
-                                                       scan.nextLine();
                                                        System.out.println("");
                                                        shouldContinue2 = false;
                                                     }
@@ -1018,14 +1006,15 @@ public class Disney {
                                                      {
                                                         System.out.print("Ticket Day Pass > ");
                                                         int ticketpass = scan.nextInt();
+                                                        scan.nextLine();
                                                         if(!Character.isDigit(ticketpass) && ticketpass > 31)
                                                         {
                                                             System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
                                                             System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                             char back = scan.next().charAt(0);
+                                                            scan.nextLine();
                                                             if(Character.toUpperCase(back) == 'Y')
                                                             {
-                                                               scan.nextLine();
                                                                System.out.println("");
                                                                shouldContinue = false;
                                                             }
@@ -1075,14 +1064,15 @@ public class Disney {
                                             {
                                                 System.out.print("Enter ticket quantity > ");
                                                 quantityOrder = scan.nextInt();
+                                                scan.nextLine();
                                                 if(quantityOrder > 1000 & !Character.isDigit(quantityOrder))
                                                 {
                                                     System.out.println("\n----- Invalid Value || You have exceed the order ticket limit -----");
                                                     System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                     char back = scan.next().charAt(0);
+                                                    scan.nextLine();
                                                     if(Character.toUpperCase(back) == 'Y')
                                                     {
-                                                       scan.nextLine();
                                                        System.out.println("");
                                                        shouldContinue2 = false;
                                                     }
@@ -1101,14 +1091,15 @@ public class Disney {
                                                      {
                                                         System.out.print("Ticket Day Pass > ");
                                                         int ticketpass = scan.nextInt();
+                                                        scan.nextLine();
                                                         if(!Character.isDigit(ticketpass) && ticketpass > 31)
                                                         {
                                                             System.out.println("\n----- Invalid value! / TiceketPass limit to 31 days only -----");
                                                             System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                                             char back = scan.next().charAt(0);
+                                                            scan.nextLine();
                                                             if(Character.toUpperCase(back) == 'Y')
                                                             {
-                                                               scan.nextLine();
                                                                System.out.println("");
                                                                shouldContinue = false;
                                                             }
@@ -1157,9 +1148,9 @@ public class Disney {
                                             System.out.printf("\n ------- Invalid Ticket Type -------\n");
                                             System.out.print("Would you like to try again (Y=yes | N=no) > ");
                                             char back = scan.next().charAt(0);
+                                            scan.nextLine();
                                             if(Character.toUpperCase(back) == 'Y')
                                             {
-                                                scan.nextLine();
                                                 System.out.println("");
                                                 shouldContinue3 = false;
                                             }
@@ -1177,7 +1168,7 @@ public class Disney {
                         }
                     } 
                     if(error != 0 )
-                    {
+                    { 
                         again = true;
                         error++;
                         break;
@@ -1673,7 +1664,7 @@ public class Disney {
                                 int month = scan.nextInt();
                                 System.out.print("Year > ");
                                 int year = scan.nextInt();
-                                validateCard = expireValidation(month, year);
+                                validateCard = Customer.expireValidation(month, year);
                                 if(validateCard == true)
                                 {
                                     String payment2 = "Card";
@@ -2462,8 +2453,4 @@ public class Disney {
             System.out.println(temp.toString());
         }
     }
-    
- 
-   
-    
 }

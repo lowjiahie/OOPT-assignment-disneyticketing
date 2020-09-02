@@ -89,6 +89,20 @@ public class Customer extends Person
         this.total = total;
     }
     
+     public static boolean expireValidation(int month, int year){ 
+        Calendar calendar = Calendar.getInstance();
+        
+        if(calendar.get(Calendar.MONTH) > month && calendar.get(Calendar.YEAR) == year)
+        {
+            return false;
+        }
+        else if (calendar.get(Calendar.YEAR) > year)
+        {
+            return false;
+        }
+        
+        return true;
+    }
     
     public String toString() {
         return super.toString() +
