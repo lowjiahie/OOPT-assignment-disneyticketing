@@ -823,7 +823,7 @@ public class Disney {
                 System.out.println("3. Return");
                 System.out.print("Select Field to Edit (1-3) > ");
                 selection = scan.nextInt();
-
+                scan.nextLine(); 
                 switch(selection){
                     case 1:
                         store = editPersonalInfo(store);
