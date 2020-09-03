@@ -9,7 +9,7 @@ public class Product {
     private int quantity;
     private int totalQtyPurchased;  //added to track how much item has been purchased from this supplier
     private double price;
-    private static int productCount= 1005;
+    private static int productCount= 1000;
     private static ArrayList<Product> prodList = new ArrayList<Product>();
     
     public Product(int id, String name, String description, int quantity, double price) {
@@ -19,7 +19,6 @@ public class Product {
         this.quantity = quantity;
         this.totalQtyPurchased =quantity;
         this.price = price;
-
     }
 
     public static void setProdList(ArrayList<Product> prodList) {

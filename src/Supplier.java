@@ -12,7 +12,7 @@ import java.util.Date;
 public class Supplier extends Person{
     private static ArrayList<Supplier> supplier = new ArrayList<Supplier>();
     private ArrayList <Product> suppProdList = new ArrayList <Product>(); 
-    private static int suppIdCount=7003;
+    private static int suppIdCount=7000;
     private Date joinDate;
     
     public Supplier(){

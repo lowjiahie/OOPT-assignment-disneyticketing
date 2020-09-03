@@ -1866,7 +1866,8 @@ public class Disney {
     public static void addSupplier (){
       
         char ask;
-        int id = Supplier.getSuppIdCount();
+        int count =Supplier.getSupplier().size()+ 1;
+        int id =Supplier.getSuppIdCount()+count;
         
         System.out.print("\nDo you want to add supplier (Y/N) > ");
         ask = get.nextLine().charAt(0);
@@ -2038,7 +2039,8 @@ public class Disney {
         
     }
     public static void addProduct(Supplier supp){
-        int id =Product.getProductCount();
+        int count =Product.getProdList().size()+ 1;
+        int id =Product.getProductCount()+count;
         //prompt and read
         System.out.println("\nproduct ID > " + id );  
         System.out.print("Enter product name > ");
